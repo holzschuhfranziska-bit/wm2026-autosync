@@ -1,0 +1,28 @@
+name: WM 2026 Auto-Sync
+
+on:
+  schedule:
+    # Läuft alle 5 Minuten während des Turniers
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+    # Kann auch manuell gestartet werden
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Repository auschecken
+        uses: actions/checkout@v4
+
+      - name: Node.js einrichten
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Ergebnisse synchronisieren
+        run: node sync.js
+        env:
+          FOOTBALL_API_KEY: ${{ secrets.FOOTBALL_API_KEY }}
+          FIREBASE_URL: ${{ secrets.FIREBASE_URL }}
+          FIREBASE_KEY: ${{ secrets.FIREBASE_KEY }}
