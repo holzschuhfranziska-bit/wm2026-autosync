@@ -9,7 +9,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     permissions:
-      contents: write         # nötig um Backup-Dateien ins Repo zu committen
+      contents: write
 
     steps:
       - name: Repository auschecken
@@ -31,5 +31,4 @@ jobs:
           git config user.name  "WM2026 Bot"
           git config user.email "bot@wm2026-tippspiel"
           git add backups/
-          git diff --staged --quiet || git commit -m "Backup $(date -u '+%Y-%m-%d %H:%M') UTC"
-          git push
+          git diff --staged --quiet || (git commit -m "Backup $(date -u '+%Y-%m-%d %H:%M') UTC" && git pull --rebase && git push)
