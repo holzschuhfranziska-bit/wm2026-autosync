@@ -6,7 +6,7 @@
 // ═══════════════════════════════════════════════════════════════
 
 const GAS_URL        = process.env.GAS_URL;
-const APIFOOTBALL_KEY = process.env.APIFOOTBALL_KEY;
+const APIFOOTBALL_KEY = "42417879b61b66d01ada41794b24b205";
 const fs             = require("fs");
 const path           = require("path");
 
@@ -158,10 +158,7 @@ async function main() {
 
   await createBackup();
 
-  if (!APIFOOTBALL_KEY) {
-    console.log("⚠️  APIFOOTBALL_KEY fehlt — nur Backup");
-    return;
-  }
+
 
   console.log("\n⚽ Hole Ergebnisse von API-Football...");
   const currentResults = await gasGet("results").catch(() => ({})) || {};
@@ -208,4 +205,3 @@ main().catch(err => {
   console.error("❌ Fehler:", err.message);
   process.exit(1);
 });
-
